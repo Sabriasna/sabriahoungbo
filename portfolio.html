@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mon Portfolio - Sabria Houngbo</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #3897f0;
+            --secondary: #fafafa;
+            --text: #262626;
+            --border: #dbdbdb;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+        
+        body {
+            background-color: var(--secondary);
+            color: var(--text);
+        }
+        
+        /* Header style */
+        .profile-header {
+            max-width: 935px;
+            margin: 30px auto;
+            display: flex;
+            padding: 20px;
+        }
+        
+        .profile-avatar {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 50px;
+            border: 3px solid var(--border);
+        }
+        
+        .profile-info h1 {
+            font-size: 28px;
+            font-weight: 300;
+            margin-bottom: 20px;
+        }
+        
+        .profile-stats {
+            display: flex;
+            margin-bottom: 20px;
+        }
+        
+        .profile-stats div {
+            margin-right: 40px;
+        }
+        
+        .profile-bio {
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+        
+        /* Navigation */
+        .profile-nav {
+            border-top: 1px solid var(--border);
+            max-width: 935px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+        }
+        
+        .profile-nav a {
+            padding: 16px 0;
+            margin: 0 30px;
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 600;
+            font-size: 14px;
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+        }
+        
+        .profile-nav a i {
+            margin-right: 6px;
+        }
+        
+        .profile-nav a.active {
+            border-top: 1px solid var(--text);
+        }
+        
+        /* Gallery */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-gap: 28px;
+            max-width: 935px;
+            margin: 30px auto;
+        }
+        
+        .gallery-item {
+            position: relative;
+            width: 100%;
+            padding-top: 100%; /* Carré */
+            overflow: hidden;
+        }
+        
+        .gallery-item img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s;
+        }
+        
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+        
+        .gallery-item-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.3);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s;
+            color: white;
+        }
+        
+        .gallery-item:hover .gallery-item-overlay {
+            opacity: 1;
+        }
+        
+        .gallery-item-overlay span {
+            margin: 0 10px;
+            font-weight: 600;
+        }
+        
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 100;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal-content {
+            background: white;
+            max-width: 900px;
+            width: 90%;
+            max-height: 90vh;
+            display: flex;
+        }
+        
+        .modal-image {
+            width: 60%;
+            height: 70vh;
+            object-fit: contain;
+            background: black;
+        }
+        
+        .modal-sidebar {
+            width: 40%;
+            padding: 20px;
+            overflow-y: auto;
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            color: white;
+            font-size: 30px;
+            cursor: pointer;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .profile-header {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+            
+            .profile-avatar {
+                margin-right: 0;
+                margin-bottom: 20px;
+            }
+            
+            .profile-stats {
+                justify-content: center;
+            }
+            
+            .gallery {
+                grid-gap: 3px;
+            }
+            
+            .modal-content {
+                flex-direction: column;
+                max-height: 90vh;
+            }
+            
+            .modal-image {
+                width: 100%;
+                height: 50vh;
+            }
+            
+            .modal-sidebar {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="profile-header">
+        <img src="https://via.placeholder.com/150" alt="Sabria Houngbo" class="profile-avatar">
+        <div class="profile-info">
+            <h1>sabria.houngbo</h1>
+            <div class="profile-stats">
+                <div><strong>54</strong> publications</div>
+                <div><strong>1.2k</strong> abonnés</div>
+                <div><strong>543</strong> abonnements</div>
+            </div>
+            <div class="profile-bio">
+                <p>Étudiante en communication digitale & marketing</p>
+                <p>📱 Community Manager</p>
+                <p>🎨 Création de contenu</p>
+                <p>📸 Photographe amateur</p>
+            </div>
+        </div>
+    </header>
+    
+    <nav class="profile-nav">
+        <a href="#" class="active"><i class="fas fa-table"></i> Publications</a>
+        <a href="#"><i class="fas fa-bookmark"></i> Sauvegardé</a>
+        <a href="#"><i class="fas fa-user-tag"></i> Tagué</a>
+    </nav>
+    
+    <div class="gallery">
+        <!-- Item 1 -->
+        <div class="gallery-item" onclick="openModal('https://via.placeholder.com/600', 'Création de contenu pour une marque de cosmétiques')">
+            <img src="https://via.placeholder.com/600" alt="Projet 1">
+            <div class="gallery-item-overlay">
+                <span><i class="fas fa-heart"></i> 124</span>
+                <span><i class="fas fa-comment"></i> 12</span>
+            </div>
+        </div>
+        
+        <!-- Ajoutez d'autres items de la même manière -->
+        <!-- 8 autres items pour compléter la grille -->
+        <div class="gallery-item" onclick="openModal('https://via.placeholder.com/600/0000FF', 'Campagne publicitaire pour un restaurant')">
+            <img src="https://via.placeholder.com/600/0000FF" alt="Projet 2">
+            <div class="gallery-item-overlay">
+                <span><i class="fas fa-heart"></i> 89</span>
+                <span><i class="fas fa-comment"></i> 5</span>
+            </div>
+        </div>
+        
+        <div class="gallery-item" onclick="openModal('https://via.placeholder.com/600/FF0000', 'Photographie de mode')">
+            <img src="https://via.placeholder.com/600/FF0000" alt="Projet 3">
+            <div class="gallery-item-overlay">
+                <span><i class="fas fa-heart"></i> 210</span>
+                <span><i class="fas fa-comment"></i> 24</span>
+            </div>
+        </div>
+        
+        <div class="gallery-item" onclick="openModal('https://via.placeholder.com/600/00FF00', 'Design de packaging')">
+            <img src="https://via.placeholder.com/600/00FF00" alt="Projet 4">
+            <div class="gallery-item-overlay">
+                <span><i class="fas fa-heart"></i> 76</span>
+                <span><i class="fas fa-comment"></i> 8</span>
+            </div>
+        </div>
+        
+        <div class="gallery-item" onclick="openModal('https://via.placeholder.com/600/FFFF00', 'Stratégie réseaux sociaux')">
+            <img src="https://via.placeholder.com/600/FFFF00" alt="Projet 5">
+            <div class="gallery-item-overlay">
+                <span><i class="fas fa-heart"></i> 143</span>
+                <span><i class="fas fa-comment"></i> 17</span>
+            </div>
+        </div>
+        
+        <div class="gallery-item" onclick="openModal('https://via.placeholder.com/600/00FFFF', 'Illustration digitale')">
+            <img src="https://via.placeholder.com/600/00FFFF" alt="Projet 6">
+            <div class="gallery-item-overlay">
+                <span><i class="fas fa-heart"></i> 98</span>
+                <span><i class="fas fa-comment"></i> 9</span>
+            </div>
+        </div>
+        
+        <div class="gallery-item" onclick="openModal('https://via.placeholder.com/600/FF00FF', 'Motion design')">
+            <img src="https://via.placeholder.com/600/FF00FF" alt="Projet 7">
+            <div class="gallery-item-overlay">
+                <span><i class="fas fa-heart"></i> 167</span>
+                <span><i class="fas fa-comment"></i> 21</span>
+            </div>
+        </div>
+        
+        <div class="gallery-item" onclick="openModal('https://via.placeholder.com/600/000000', 'Identité visuelle')">
+            <img src="https://via.placeholder.com/600/000000" alt="Projet 8">
+            <div class="gallery-item-overlay">
+                <span><i class="fas fa-heart"></i> 112</span>
+                <span><i class="fas fa-comment"></i> 14</span>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal -->
+    <div class="modal" id="imageModal">
+        <span class="close-modal" onclick="closeModal()">&times;</span>
